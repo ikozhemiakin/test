@@ -17,6 +17,7 @@ use Magento\Framework\Pricing\Render;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Phrase;
+
 /**
  * SalesInformation block
  * Class SalesInformation
@@ -72,26 +73,21 @@ class SalesInformation extends Template
     public function getQty($product)
     {
         $productId = $product->getId();
+        /** get current extension attributes from entity **/
         $extensionAttributes = $this->_entity->getExtensionAttributes();
         if (!$productId) {
             throw new LocalizedException(
-                new Phrase('Product ID is not exist.')
+                new Phrase('Product ID or order status are not exist.')
             );
-        }
-        /** get current extension attributes from entity **/
-        if (!isset($this->_data[0])) {
-            $this->_data[0] = 'complete';
-        } else {
+        } elseif (isset($this->_data[0])) {
             $ordersQty = $this->getLastOrdersQty($productId, $this->_data[0]);
-            $extensionAttributes->setSalesInformation(['qty' => $this->getLastOrdersQty($ordersQty)]);
-            $this->_entity->setExtensionAttributes($extensionAttributes);
-
-            return $ordersQty;
+        } else {
+            $ordersQty = $this->getLastOrdersQty($productId);
         }
-        $extensionAttributes->setSalesInformation(['qty' => $this->getLastOrdersQty($productId)]);
+        $extensionAttributes->setSalesInformation(['qty' => $ordersQty]);
         $this->_entity->setExtensionAttributes($extensionAttributes);
 
-        return $this->getLastOrdersQty($productId);
+        return $ordersQty;
     }
 
     /**
