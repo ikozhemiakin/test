@@ -9,14 +9,16 @@
     <type name="SoftLoft\Test\Block\SalesInformation">
         <arguments>
             <argument name="data" xsi:type="array">
-                <item name="0" xsi:type="string">complete</item>
+                <item name="status" xsi:type="string">complete</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\Catalog\Api\Data\ProductInterface">
         <plugin name="ProductExtensionAttributeOperations" type="SoftLoft\Test\Plugin\ProductAttributesLoad"/>
     </type>
-    <type name="Magento\Catalog\Model\ProductRepository">
-        <plugin name="ProductRepository" type="SoftLoft\Test\Plugin\ProductRepository"/>
+    <type name="SoftLoft\Test\Block\SalesInformation">
+        <arguments>
+            <argument name="entity" xsi:type="object">SoftLoft\Test\Model\SalesInformation\Proxy</argument>
+        </arguments>
     </type>
 </config>

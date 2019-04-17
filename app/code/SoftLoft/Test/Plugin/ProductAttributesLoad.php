@@ -38,8 +38,7 @@ class ProductAttributesLoad
     public function afterGetExtensionAttributes(
         ProductInterface $entity,
         ProductExtensionInterface $extension = null
-    )
-    {
+    ) {
         if ($extension === null) {
             $extension = $this->extensionFactory->create();
         }
