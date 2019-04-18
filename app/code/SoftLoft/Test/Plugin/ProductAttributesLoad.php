@@ -18,14 +18,14 @@ class ProductAttributesLoad
     /**
      * @var ProductExtensionFactory
      */
-    private $extensionFactory;
+    private $_extensionFactory;
 
     /**
      * @param ProductExtensionFactory $extensionFactory
      */
     public function __construct(ProductExtensionFactory $extensionFactory)
     {
-        $this->extensionFactory = $extensionFactory;
+        $this->_extensionFactory = $extensionFactory;
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductAttributesLoad
         ProductExtensionInterface $extension = null
     ) {
         if ($extension === null) {
-            $extension = $this->extensionFactory->create();
+            $extension = $this->_extensionFactory->create();
         }
 
         return $extension;
